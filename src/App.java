@@ -15,6 +15,8 @@ public class App {
 		String file_name = scan.nextLine();
 		readFile(file_name);
 		scan.close();
+		
+		System.out.println("***FIM***");
 	}
 
 	public static List<Processo> readFile(String file_name) throws IOException {
@@ -57,7 +59,6 @@ public class App {
 				listaDeProcessos.add(new Processo(id++, tempo_chegada, tempo_execucao, prioridade, in_out));
 			}
 		}
-
 		return listaDeProcessos;
 	}
 }
