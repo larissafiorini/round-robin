@@ -4,14 +4,29 @@ import java.util.Comparator;
 import java.util.List;
 
 public class Processo implements Comparable<Object> {
-	List<Integer> in_out;
 
 	private int id;
 	private int tempo_chegada;
 	private int tempo_execucao;
 	private int prioridade;
+	List<Integer> in_out;
+	
+	// Execucao
+	private int tempo_resposta = -1;
+	private int tempo_rodando = 0; // tempo da fatia de tempo
+	private int total_rodando = 0;
 
-	private List<Processo> listaDeProcessos = new ArrayList<>();
+	public int getTempo_resposta() {
+		return tempo_resposta;
+	}
+
+	public int getTempo_rodando() {
+		return tempo_rodando;
+	}
+
+	public int getTotal_rodando() {
+		return total_rodando;
+	}
 
 	public Processo(int tempo_chegada, int tempo_execucao, int prioridade, int id, List<Integer> in_out) {
 		this.id = id;
@@ -41,16 +56,25 @@ public class Processo implements Comparable<Object> {
 	}
 
 	@Override
+	public String toString() {
+		return id + "";
+	}
+
+	public void run(int tempo_atual) {
+		if (tempo_resposta < 0)
+			tempo_resposta = tempo_atual - tempo_chegada;
+
+		tempo_execucao--;
+		tempo_rodando++;
+		total_rodando++;
+	}
+	@Override
 	public int compareTo(Object arg) {
 		int prioridade = ((Processo) arg).prioridade;
 		System.out.println(this.prioridade - prioridade);
 		return this.prioridade - prioridade;
 	}
 
-	@Override
-	public String toString() {
-		return id + "";
-	}
 
 	// Ordena processos em execução por prioridade
 	public static void sortByPriority(List<Processo> executando) {

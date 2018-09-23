@@ -11,10 +11,15 @@ public class App {
 
 	public static void main(String[] args) throws IOException {
 		Scanner scan = new Scanner(System.in);
-		System.out.println("Insira o nome do arquivo: ");
-		String file_name = scan.nextLine();
-		readFile(file_name);
+		//System.out.println("Insira o nome do arquivo: ");
+		//String file_name = scan.nextLine();
+		String file_name = "input.txt";
 		scan.close();
+
+		List<Processo> listaDeProcessos = readFile(file_name);
+
+		Processador processador = new Processador(listaDeProcessos);
+		processador.run();
 		
 		System.out.println("***FIM***");
 	}
