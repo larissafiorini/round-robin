@@ -9,12 +9,21 @@ public class Processo implements Comparable<Object> {
 	private int tempo_chegada;
 	private int tempo_execucao;
 	private int prioridade;
-	List<Integer> in_out;
 	
+	// entrada/saida
+	List<Integer> in_out;
+	private int tempo_inicio_in_out;
+	
+
+
 	// Execucao
 	private int tempo_resposta = -1;
 	private int tempo_rodando = 0; // tempo da fatia de tempo
 	private int total_rodando = 0;
+
+	public int getTempo_inicio_in_out() {
+		return tempo_inicio_in_out;
+	}
 
 	public int getTempo_resposta() {
 		return tempo_resposta;
@@ -77,7 +86,7 @@ public class Processo implements Comparable<Object> {
 
 
 	// Ordena processos em execução por prioridade
-	public static void sortByPriority(List<Processo> executando) {
+	public static void ordenaPrioridades(List<Processo> executando) {
 		Collections.sort(executando, new Comparator<Processo>() {
 			@Override
 			public int compare(Processo p1, Processo p2) {
