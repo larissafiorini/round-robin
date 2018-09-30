@@ -1,8 +1,10 @@
+package escalonamento;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
 
 /**
 *	Classe que gerencia lista de processos que serão escalonados pelo processador.
@@ -31,6 +33,9 @@ public class GerProcessos {
 		return processos;
 	}
 
+	
+	
+	
 	public static GerProcessos readFile(String file_name) throws IOException {
 		GerProcessos processos;
 		int id = 1;
@@ -79,5 +84,21 @@ public class GerProcessos {
 		}
 
 		return processos;
+	}
+	public List<Processo> getProcessosTempo(int t) {
+		List<Processo> res = new ArrayList<Processo>();
+
+		for (Processo p : processos)
+			if (p.getTempoChegada() == t)
+				res.add(p);
+
+		for (Processo p : res)
+			processos.remove(p);
+
+		return res;
+	}
+	
+	public boolean temProcessos() {
+		return !processos.isEmpty();
 	}
 }
