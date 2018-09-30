@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 public class App {
 	public static void main(String[] args) throws IOException {
+		System.out.println("****Algoritmo Round Robin****\n");
 		
 		Scanner scan = new Scanner(System.in);
 		// System.out.println("Insira o nome do arquivo: ");

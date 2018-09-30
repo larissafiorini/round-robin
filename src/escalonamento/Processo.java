@@ -27,6 +27,7 @@ public class Processo implements Comparable<Object> {
 	List<Integer> in_out;
 	private int tempo_inicio_in_out;
 
+
 	//Tempos do algoritmo
 	private int tempo_resposta = -1;
 	private int tempo_espera = 0;
@@ -117,11 +118,9 @@ public class Processo implements Comparable<Object> {
 			}
 		});
 	}
-	//incrementWaitTime
 	public void aumentaTempoEspera() {
 		tempo_espera++;
 	}
-	//getWaitTime
 	public int getTempoEspera() {
 		return tempo_espera;
 	}

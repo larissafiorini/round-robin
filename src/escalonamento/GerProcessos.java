@@ -98,7 +98,7 @@ public class GerProcessos {
 		return res;
 	}
 	
-	public boolean temProcessos() {
-		return !processos.isEmpty();
+	public boolean listaVazia() {
+		return processos.isEmpty();
 	}
 }
