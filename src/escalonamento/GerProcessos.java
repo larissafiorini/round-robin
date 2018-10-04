@@ -62,20 +62,21 @@ public class GerProcessos {
 				linha = br.readLine();
 
 				String[] linhas = linha.split(" ");
-
+				
 				// 1 = tempo de chegada
 				int tempo_chegada = Integer.parseInt(linhas[0]);
-
+				System.out.print(tempo_chegada+" ");
 				// 2 = tempo de execucao
 				int tempo_execucao = Integer.parseInt(linhas[1]);
-
+				System.out.print(tempo_execucao+" ");
 				// 3 = prioridade (1 ate 9 - prioridade 1 e a melhor)
 				int prioridade = Integer.parseInt(linhas[2]);
-
+				System.out.println(prioridade);
+				
 				// 4 = tempos de acesso a operacoes de E/S. Opcional.
 				if (linhas.length > 3) {
 					in_out = new ArrayList<Integer>();
-
+					System.out.println("ola");
 					for (int i = 3; i < linhas.length; i++)
 						in_out.add(Integer.parseInt(linhas[i]));
 				}

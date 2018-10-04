@@ -106,7 +106,7 @@ public class Processo implements Comparable<Object> {
 		return this.prioridade - prioridade;
 	}
 
-	// Ordena processos em execução por prioridade em ordem crescente
+	// Ordena processos em execucao por prioridade em ordem crescente
 	public static void ordenaPrioridades(List<Processo> executando) {
 		Collections.sort(executando, new Comparator<Processo>() {
 			@Override
@@ -115,6 +115,7 @@ public class Processo implements Comparable<Object> {
 			}
 		});
 	}
+	
 	public void aumentaTempoEspera() {
 		tempo_espera++;
 	}
@@ -130,7 +131,7 @@ public class Processo implements Comparable<Object> {
 		return tempo_resposta;
 	}
 	
-	/* Verifica se há operacoes de E/S a serem executadas */
+	/* Verifica se ha operacoes de E/S a serem executadas */
 	public boolean verificaInOut() {
 		if (in_out == null)
 			return false;

@@ -9,7 +9,7 @@ import java.util.Queue;
  * Classe que realiza o escalonamento dos processos. Responsavel por construir o grafo de execucao, 
  * bem como calcular o tempo médio de espera e resposta. 
  * 
- * O método principal 'executaEscalonador' irá fazer verificacoes para decidir qual operacao deve executar. 
+ * O metodo principal 'executaEscalonador' ira fazer verificacoes para decidir qual operacao deve executar. 
  * 
  * Verificacoes:
  * 1- Se ha processos executando
@@ -27,6 +27,7 @@ public class Processador {
 	private List<Processo> prontos = new LinkedList<>();
 	// processos que terminaram sua execucao
 	private List<Processo> finalizados = new LinkedList<>();
+	
 	// processos realizando operacoes de entrada e saida
 	private ArrayList<Processo> inOut = new ArrayList<>();
 
@@ -34,7 +35,7 @@ public class Processador {
 	private ArrayList<String> execucao_final = new ArrayList<String>();
 
 	private int tempo_atual = 0;
-	private Processo atual_anterior;
+	private Processo atual_executando;
 
 	public Processador(GerProcessos processos) {
 		this.processos = processos;
@@ -50,6 +51,7 @@ public class Processador {
 			encontraProntos();
 			
 			/*  Verificacoes */
+			//System.out.println(execucao_final);
 			
 			if (prontos.isEmpty())
 				execucao_final.add("-");
@@ -70,7 +72,7 @@ public class Processador {
 
 			else {
 				// troca o contexto para novo processo se necessário
-				if (execucao_final.get(execucao_final.size() - 1).contains("-")) {
+				if (execucao_final.get(execucao_final.size() - 1).equals("-")  && !execucao_final.get(execucao_final.size()-1).equals("C")) {
 					execucao_final.add("C");
 					tempo_atual++;
 				}
@@ -96,7 +98,7 @@ public class Processador {
 		prontos.addAll(returnInOut);
 
 		if (!prontos.isEmpty()) {
-			atual_anterior = prontos.get(0);
+			atual_executando = prontos.get(0);
 			Processo.ordenaPrioridades(prontos);
 		}
 	}
@@ -112,13 +114,19 @@ public class Processador {
 	// Verifica se deve interromper execucao do processo atual. Sera interrompido se houver chegado 
 	// um processo de melhor prioridade na fila de prontos para executar.
 	private boolean checkInterrupcao() {
-		if (prontos.get(0) != atual_anterior)
+		if (prontos.get(0) != atual_executando)
 			return true;
 		else
 			return false;
 	}
 	// verifica se todas listas estao vazias.
 	private boolean vazio() {
+		System.out.print(processos.listaVazia()+" ");
+		System.out.print( prontos.isEmpty()+" ");
+		System.out.println(inOut.isEmpty());
+		for (Processo c : processos.getProcessos())
+			System.out.print(c.getId()+" ");
+		System.out.println();
 		return processos.listaVazia() && prontos.isEmpty() && inOut.isEmpty();
 	}
 	// executa processo atual

@@ -12,7 +12,7 @@ import java.util.Scanner;
  * Escalonamento Round Robin com prioridade
  *
  * Este programa recebe um arquivo de entrada com as informações dos processos que desejam ser executados, realiza o escalonamento
- * da execução desses processos utilizando o algoritmo Round Robin com prioridade. Ao final, mostra ao usuário um grafo ilustrando como 
+ * da execucao desses processos utilizando o algoritmo Round Robin com prioridade. Ao final, mostra ao usuário um grafo ilustrando como 
  * foram executados esses processos, bem como os tempos do algoritmo, sendo eles o tempo médio de espera e resposta.
  * 
  * Autores: 
