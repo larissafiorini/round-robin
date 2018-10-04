@@ -6,6 +6,11 @@ import java.util.List;
 import java.util.Queue;
 
 /*
+ * Classe que realiza o escalonamento dos processos. Responsavel por construir o grafo de execucao, 
+ * bem como calcular o tempo médio de espera e resposta. 
+ * 
+ * O método principal 'executaEscalonador' irá fazer verificacoes para decidir qual operacao deve executar. 
+ * 
  * Verificacoes:
  * 1- Se ha processos executando
  * 2- Se fatia de tempo(quantum) foi atingida
@@ -43,7 +48,9 @@ public class Processador {
 
 			// Procura processos prontos para executar
 			encontraProntos();
-
+			
+			/*  Verificacoes */
+			
 			if (prontos.isEmpty())
 				execucao_final.add("-");
 
@@ -62,7 +69,7 @@ public class Processador {
 				terminaProcesso();
 
 			else {
-				// troca o contexto para novo processo se necess�rio
+				// troca o contexto para novo processo se necessário
 				if (execucao_final.get(execucao_final.size() - 1).contains("-")) {
 					execucao_final.add("C");
 					tempo_atual++;
@@ -74,7 +81,8 @@ public class Processador {
 			tempo_atual++;
 		}
 	}
-
+	
+	// Procura processos prontos para executar.
 	private void encontraProntos() {
 		List<Processo> p, returnInOut;
 
@@ -92,7 +100,8 @@ public class Processador {
 			Processo.ordenaPrioridades(prontos);
 		}
 	}
-
+	
+	// Verifica se atingiu limite da fatia de tempo
 	private boolean terminouQuantum() {
 		if (!prontos.isEmpty())
 			if (prontos.get(0).getTempo_rodando() >= processos.getQuantum())
@@ -100,36 +109,37 @@ public class Processador {
 		
 		return false;
 	}
-	
+	// Verifica se deve interromper execucao do processo atual. Sera interrompido se houver chegado 
+	// um processo de melhor prioridade na fila de prontos para executar.
 	private boolean checkInterrupcao() {
 		if (prontos.get(0) != atual_anterior)
 			return true;
 		else
 			return false;
 	}
-	
+	// verifica se todas listas estao vazias.
 	private boolean vazio() {
 		return processos.listaVazia() && prontos.isEmpty() && inOut.isEmpty();
 	}
-
+	// executa processo atual
 	private void executaProcesso() {
 		prontos.get(0).executa(tempo_atual);
 		// add na saida
 		execucao_final.add(prontos.get(0).toString());
 	}
 
-
+	// verifica se ha operacoes de E/S no processo.
 	private boolean deveIO() {
 		return !prontos.isEmpty() && prontos.get(0).verificaInOut();
 	}
-
+	// executa operacoes de E/S do processo
 	private void executaInOut() {
 		prontos.get(0).setTempo_inicio_in_out(tempo_atual);
 		inOut.add(prontos.get(0));
 		prontos.remove(0);
 		execucao_final.add("C");
 	}
-
+	// verifica se terminou de realizar operacao de E/S 
 	private List<Processo> terminouInOut() {
 		List<Processo> lista = new ArrayList<>();
 
@@ -142,11 +152,11 @@ public class Processador {
 
 		return lista;
 	}
-
+	// verifica se processo atualterminou seu tempo de execução
 	private boolean terminouAtual() {
 		return !prontos.isEmpty() && prontos.get(0).terminou();
 	}
-
+	// finaliza processo atual. Retira da fila de prontos e coloca na fila de finalizados.
 	private void terminaProcesso() {
 		finalizados.add(prontos.get(0));
 		prontos.remove(0);
@@ -154,7 +164,7 @@ public class Processador {
 		if (!vazio())
 			execucao_final.add("C");
 	}
-
+	
 	private void addTempoEspera(boolean naoExecutouAtual) {
 		Processo atual = null;
 
@@ -171,7 +181,7 @@ public class Processador {
 	}
 
 	
-
+	// troca execucao para outro processo
 	private void trocaProcesso() {
 		int prioridades = 0;
 
@@ -192,7 +202,7 @@ public class Processador {
 		execucao_final.add("C");
 	}
 	
-
+	/* Responsavel por mostrar ao usuário o resultado da execucao e os tempos calculados */
 	public void printResultados() {
 		// Grafico mostrando como os processos foram executados
 		System.out.println("Grafico de execucao final dos processos: \n");
