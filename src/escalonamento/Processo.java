@@ -7,7 +7,7 @@ import java.util.Comparator;
 import java.util.List;
 
 /**
- * 		Define cada processo da lista e seus atributos. 
+ * Define cada processo da lista e seus atributos. 
  *
  */
 public class Processo implements Comparable<Object> {
@@ -20,18 +20,15 @@ public class Processo implements Comparable<Object> {
 
 	// Execucao
 	private int tempo_rodando = 0;
-
 	private int total_rodando = 0;
 	
 	// entrada/saida
 	List<Integer> in_out;
 	private int tempo_inicio_in_out;
 
-
 	//Tempos do algoritmo
 	private int tempo_resposta = -1;
 	private int tempo_espera = 0;
-	
 	
 	public void setTempo_inicio_in_out(int tempo_inicio_in_out) {
 		this.tempo_inicio_in_out = tempo_inicio_in_out;
@@ -87,7 +84,7 @@ public class Processo implements Comparable<Object> {
 	public String toString() {
 		return id + "";
 	}
-
+	// executa processo atual
 	public void executa(int tempo_atual) {
 		if (tempo_resposta < 0)
 			tempo_resposta = tempo_atual - tempo_chegada;
@@ -96,12 +93,12 @@ public class Processo implements Comparable<Object> {
 		tempo_rodando++;
 		total_rodando++;
 	}
-	//hasEnded
+	// verifica se processo terminou de executar
 	public boolean terminou() {
 		return tempo_execucao <= 0;
 	}
 	
-
+	
 	@Override
 	public int compareTo(Object arg) {
 		int prioridade = ((Processo) arg).prioridade;
@@ -109,7 +106,7 @@ public class Processo implements Comparable<Object> {
 		return this.prioridade - prioridade;
 	}
 
-	// Ordena processos em execuÁ„o por prioridade
+	// Ordena processos em execu√ß√£o por prioridade em ordem crescente
 	public static void ordenaPrioridades(List<Processo> executando) {
 		Collections.sort(executando, new Comparator<Processo>() {
 			@Override
@@ -132,7 +129,8 @@ public class Processo implements Comparable<Object> {
 	public int getTempoResposta() {
 		return tempo_resposta;
 	}
-
+	
+	/* Verifica se h√° operacoes de E/S a serem executadas */
 	public boolean verificaInOut() {
 		if (in_out == null)
 			return false;
