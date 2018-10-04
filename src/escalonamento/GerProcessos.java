@@ -7,7 +7,7 @@ import java.util.List;
 
 
 /**
-*	Classe que gerencia lista de processos que ser�o escalonados pelo processador.
+*	Classe que gerencia lista de processos que serão escalonados pelo processador.
 */
 
 public class GerProcessos {
@@ -35,19 +35,20 @@ public class GerProcessos {
 
 	
 	
-	
+	/* Le arquivo com informações dos processos e armazena todos os processos na lista */
 	public static GerProcessos readFile(String file_name) throws IOException {
 		GerProcessos processos;
 		int id = 1;
 		String linha;
 
-		// lista de entrada e sa�da
+		// lista de entrada e saída
 		List<Integer> in_out = null;
 
 		try (BufferedReader br = new BufferedReader(new FileReader(file_name))) {
 			// Reseta lista de inOut
 			in_out = null;
-
+			
+			// Le primeira e segunda linha com informacoes gerais dos processos
 			int numero_processos = Integer.parseInt(br.readLine());
 			int quantum = Integer.parseInt(br.readLine());
 
@@ -57,7 +58,7 @@ public class GerProcessos {
 			for (int j = 0; j < numero_processos; j++) {
 				in_out = null;
 
-				// read the line
+				// le a linha
 				linha = br.readLine();
 
 				String[] linhas = linha.split(" ");
@@ -78,13 +79,15 @@ public class GerProcessos {
 					for (int i = 3; i < linhas.length; i++)
 						in_out.add(Integer.parseInt(linhas[i]));
 				}
-
+				// Adiciona cada processo na lista
 				processos.add(new Processo(tempo_chegada, tempo_execucao, prioridade, id++, in_out));
 			}
 		}
 
 		return processos;
 	}
+	
+	/* Permite encontrar processo na lista a partir do seu tempo de chegada */
 	public List<Processo> getProcessosTempo(int t) {
 		List<Processo> res = new ArrayList<Processo>();
 
